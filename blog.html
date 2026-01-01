@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZingFood Blog | Foodie Stories & Updates</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fcfcfc;
+        }
+
+        .text-zing {
+            color: #e03131;
+        }
+
+        /* Category Badges */
+        .badge-zing {
+            background-color: rgba(224, 49, 49, 0.1);
+            color: #e03131;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+
+        /* Featured Post */
+        .featured-card {
+            background: #111;
+            color: white;
+            border-radius: 25px;
+            overflow: hidden;
+            border: none;
+            margin-bottom: 50px;
+        }
+
+        .featured-img {
+            height: 400px;
+            object-fit: cover;
+        }
+
+        /* Standard Blog Card */
+        .blog-card {
+            border: none;
+            background: transparent;
+            margin-bottom: 40px;
+            transition: 0.3s;
+        }
+
+        .blog-img-container {
+            border-radius: 20px;
+            overflow: hidden;
+            height: 220px;
+            margin-bottom: 15px;
+        }
+
+        .blog-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .blog-card:hover .blog-img-container img {
+            transform: scale(1.1);
+        }
+
+        .blog-title {
+            font-weight: 700;
+            line-height: 1.4;
+            color: #111;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .blog-title:hover {
+            color: #e03131;
+        }
+
+        .search-bar {
+            border-radius: 50px;
+            padding: 12px 25px;
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-5">
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6">
+                <h1 class="fw-bold display-5">The <span class="text-zing">Zing</span> Blog</h1>
+                <p class="text-secondary">Recipes, restaurant spotlights, and food trends.</p>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control search-bar" placeholder="Search for recipes or news...">
+            </div>
+        </div>
+
+        <div class="card featured-card shadow-lg">
+            <div class="row g-0 align-items-center">
+                <div class="col-lg-7">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1000&q=80"
+                        class="img-fluid featured-img w-100" alt="Featured Food">
+                </div>
+                <div class="col-lg-5 p-4 p-md-5">
+                    <span class="badge-zing bg-white mb-3">Editor's Pick</span>
+                    <h2 class="fw-bold mb-3">Top 10 Street Foods in India You Must Order This Weekend</h2>
+                    <p class="text-light opacity-75">From the spicy Vada Pav of Mumbai to the tangy Gol Gappas of Delhi,
+                        explore the best of Indian street food delivered to your door.</p>
+                    <div class="d-flex align-items-center mt-4">
+                        <img src="https://ui-avatars.com/api/?name=Zing+Chef&background=e03131&color=fff"
+                            class="rounded-circle me-2" width="30">
+                        <small>By Chef Arjun • 5 min read</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="blog-card">
+                    <div class="blog-img-container">
+                        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7bb7445?w=500&q=80"
+                            alt="Pancakes">
+                    </div>
+                    <span class="badge-zing mb-2">Health</span>
+                    <a href="#" class="blog-title d-block h5">Is Oat Milk Better for Your Morning Coffee?</a>
+                    <p class="small text-muted">We compare dairy vs. plant-based milk for the perfect morning brew.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="blog-card">
+                    <div class="blog-img-container">
+                        <img src="https://images.unsplash.com/photo-1512152272829-e3139592d56f?w=500&q=80" alt="Burger">
+                    </div>
+                    <span class="badge-zing mb-2">Insider</span>
+                    <a href="#" class="blog-title d-block h5">How ZingFood Delivers Your Pizza in 20 Mins</a>
+                    <p class="small text-muted">A look behind the technology that powers our hyper-local delivery.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="blog-card">
+                    <div class="blog-img-container">
+                        <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500&q=80"
+                            alt="Biryani">
+                    </div>
+                    <span class="badge-zing mb-2">Culture</span>
+                    <a href="#" class="blog-title d-block h5">The Secret History of Hyderabadi Biryani</a>
+                    <p class="small text-muted">Tracing the roots of India's most beloved rice dish back to the Nizams.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="mt-5">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled"><a class="page-link border-0" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link border-0 text-zing fw-bold" href="#">1</a></li>
+                <li class="page-item"><a class="page-link border-0 text-dark" href="#">2</a></li>
+                <li class="page-item"><a class="page-link border-0 text-dark" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-4 col-md-12">
+                    <a href="index.html" class="footer-brand"><i class="fa-solid fa-fire-flame-curved"></i> ZingFood</a>
+                    <p class="mt-3 pe-lg-5">Building the future of food delivery with speed, taste, and hygiene. We
+                        bring your favorite meals from the kitchen to your table in a Zing!</p>
+                    <div class="d-flex gap-2 mt-4">
+                        <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-6">
+                    <h6 class="footer-heading">Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html" class="footer-link">About Us</a></li>
+                        <li><a href="partner.html" class="footer-link">Partners With Us</a></li>
+                        <li><a href="team.html" class="footer-link">Our Team</a></li>
+                        <li><a href="careers.html" class="footer-link">Careers</a></li>
+                        <li><a href="blog.html" class="footer-link">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-6">
+                    <h6 class="footer-heading">Legal</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="terms.html" class="footer-link">Terms of Service</a></li>
+                        <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="refund.html" class="footer-link">Refund Policy</a></li>
+                        <li><a href="cookies.html" class="footer-link">Cookie Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-12">
+                    <h6 class="footer-heading">Experience ZingFood App</h6>
+                    <p class="small mb-3">Get 50% off on your first order via the App!</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                            alt="Play Store" class="app-badge">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
+                            alt="App Store" class="app-badge">
+                    </div>
+                    <div class="mt-4">
+                        <p class="small mb-1"><i class="fa-solid fa-envelope me-2 text-zing-red"></i>
+                            support@zingfood.com</p>
+                        <p class="small"><i class="fa-solid fa-phone me-2 text-zing-red"></i> +91 1800-ZING-FOOD</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom text-center">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-md-start">
+                        <p class="small mb-0">© 2026 ZingFood Private Limited. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end mt-2 mt-md-0">
+                        <p class="small mb-0">Made with <i class="fa-solid fa-heart text-danger"></i> for Foodies in
+                            India</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
