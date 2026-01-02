@@ -18,24 +18,50 @@
             <a class="navbar-brand" href="index.html">
                 <i class="fa-solid fa-fire-flame-curved"></i> ZingFood
             </a>
-
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navContent">
                 <div class="nav-search-container mx-auto my-2 my-lg-0">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" id="foodSearch" placeholder="Search for Biryani, Pizza or Samosa...">
                 </div>
-
                 <div class="navbar-nav ms-auto">
+                    <button class="btn text-white me-2" id="openCart"><i class="fa-solid fa-cart-shopping"></i>
+                        Cart</button>
                     <a href="login.html" class="nav-link text-white">Login</a>
                     <a href="signup.html" class="btn btn-outline-light ms-lg-2">Sign Up</a>
                 </div>
             </div>
         </div>
+        <div class="d-flex align-items-center me-3">
+            <i class="fa-solid fa-sun text-warning me-2"></i>
+            <div class="form-check form-switch mb-0">
+                <input class="form-check-input" type="checkbox" id="darkModeToggle">
+            </div>
+            <i class="fa-solid fa-moon text-white ms-1"></i>
+        </div>
     </nav>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="p-4 d-flex flex-column h-100">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold mb-0">My Cart</h4>
+                <button class="btn-close" id="closeCart"></button>
+            </div>
+            <div class="cart-items-list flex-grow-1 overflow-auto" id="cartItems">
+                <p class="text-center text-muted mt-5" id="emptyCartMsg">Your cart is empty!</p>
+            </div>
+            <div class="border-top pt-3 mt-3">
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-bold">Total Amount:</span>
+                    <span class="fw-bold text-zing-red fs-5" id="cartTotal">₹0</span>
+                </div>
+                <button class="btn btn-zing w-100 py-3 fw-bold shadow-sm">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
 
     <section class="hero-section">
         <h2 class="fw-bold">Deliciousness delivered to your door.</h2>
@@ -45,28 +71,44 @@
         <h5 class="fw-bold mb-4">In the mood for?</h5>
         <div class="category-container">
             <a href="#biryani-section" class="text-decoration-none category-item text-center">
-                <img src="https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=300&h=300&fit=crop" alt="Biryani">
+                <img src="https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=300&h=300&fit=crop"
+                    alt="Biryani">
                 <p class="category-text">Biryani</p>
             </a>
             <a href="#pizza-section" class="text-decoration-none category-item text-center">
-                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=300&fit=crop" alt="Pizza">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=300&fit=crop"
+                    alt="Pizza">
                 <p class="category-text">Pizza</p>
             </a>
             <a href="#samosa-section" class="text-decoration-none category-item text-center">
-                <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950" alt="Samosa">
+                <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=300&h=300&fit=crop"
+                    alt="Samosa">
                 <p class="category-text">Samosa</p>
             </a>
             <a href="#burger-section" class="text-decoration-none category-item text-center">
-                <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=300&h=300&fit=crop" alt="Burger">
+                <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=300&h=300&fit=crop"
+                    alt="Burger">
                 <p class="category-text">Burger</p>
             </a>
             <a href="#chinese-section" class="text-decoration-none category-item text-center">
-                <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=300&h=300&fit=crop" alt="Chinese">
+                <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=300&h=300&fit=crop"
+                    alt="Chinese">
                 <p class="category-text">Chinese</p>
             </a>
-            <a href="#dessert-section" class="text-decoration-none category-item text-center">
-                <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=300&h=300&fit=crop" alt="Desserts">
-                <p class="category-text">Desserts</p>
+            <a href="#paneer-section" class="text-decoration-none category-item text-center">
+                <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=300&h=300&fit=crop"
+                    alt="North Indian">
+                <p class="category-text">Paneer</p>
+            </a>
+            <a href="#cake-section" class="text-decoration-none category-item text-center">
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop"
+                    alt="Cakes">
+                <p class="category-text">Cakes</p>
+            </a>
+            <a href="#pasta-section" class="text-decoration-none category-item text-center">
+                <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=300&h=300&fit=crop"
+                    alt="Pasta">
+                <p class="category-text">Pasta</p>
             </a>
         </div>
     </div>
@@ -74,6 +116,7 @@
     <div class="container mt-3">
         <div class="d-flex gap-2 overflow-auto pb-2">
             <div class="filter-pill">Pure Veg</div>
+            <div class="filter-pill">Non-Veg</div>
             <div class="filter-pill">Rating 4.0+</div>
             <div class="filter-pill">Fast Delivery</div>
             <div class="filter-pill">Offers</div>
@@ -84,18 +127,260 @@
         <h3 class="fw-bold mb-4" id="menu-title">Top Rated Dishes</h3>
         <div class="row g-4" id="food-grid">
 
+            <div class="col-12 col-md-6 col-lg-3 food-item" id="street-section">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-veg"></div>
+                        <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Pani Puri">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Gol Gappa (Pani Puri)</h6>
+                            <span class="rating-badge">5.0 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">Street Food • 8 pcs • ₹60</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 food-item">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-veg"></div>
+                        <img src="https://onlyinyourstate.in/wp-content/uploads/2018/07/Vada-Pav-Best-Street-Food-in-Mumbai.jpg"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Vada Pav">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Mumbai Vada Pav</h6>
+                            <span class="rating-badge">4.6 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">Spicy Chutney • 2 pcs • ₹80</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 food-item">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-veg"></div>
+                        <img src="https://images.pexels.com/photos/5410400/pexels-photo-5410400.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=300"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Pav Bhaji">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Special Pav Bhaji</h6>
+                            <span class="rating-badge">4.8 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">Butter Loaded • Mumbai Style • ₹150</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 food-item">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-veg"></div>
+                        <img src="https://images.unsplash.com/photo-1630409346824-4f0e7b080087?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Chole Bhature">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Delhi Chole Bhature</h6>
+                            <span class="rating-badge">4.9 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">North Indian • Spicy • ₹180</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 food-item">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-non-veg"></div>
+                        <img src="https://wallpaperaccess.com/full/9050588.jpg" class="food-image position-relative"
+                            style="opacity: 0; transition: opacity 0.5s;" alt="Chicken Roll">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Kolkata Chicken Roll</h6>
+                            <span class="rating-badge">4.5 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">Egg Wrap • Onions • ₹120</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 food-item">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-non-veg"></div>
+                        <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Chicken Tikka">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Chicken Tikka (6pc)</h6>
+                            <span class="rating-badge">4.7 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">Tandoori • Juicy • ₹280</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-12 col-md-6 col-lg-3 food-item" id="biryani-section">
                 <div class="card food-card shadow-sm">
-                    <div class="img-container">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
                         <div class="diet-indicator diet-non-veg"></div>
-                        <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=500&h=400&fit=crop" alt="Biryani">
+                        <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Biryani">
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-1">
                             <h6 class="fw-bold mb-0 dish-name">Chicken Dum Biryani</h6>
                             <span class="rating-badge">4.9 ★</span>
                         </div>
-                        <p class="text-muted small mb-3 dish-desc">Rice • Spicy • ₹350 - ₹450</p>
+                        <p class="text-muted small mb-3 dish-desc">Rice • Spicy • ₹350</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 food-item">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-veg"></div>
+                        <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Veg Biryani">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Hyderabadi Veg Biryani</h6>
+                            <span class="rating-badge">4.4 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">Vegetables • Saffron • ₹280</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 food-item">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-veg"></div>
+                        <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Dosa">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Masala Dosa</h6>
+                            <span class="rating-badge">4.8 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">Sambar • Coconut Chutney • ₹120</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 food-item">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-veg"></div>
+                        <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Idli">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Rava Idli (2pc)</h6>
+                            <span class="rating-badge">4.3 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">Healthy • Steamed • ₹90</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 food-item" id="chinese-section">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-veg"></div>
+                        <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Noodles">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Veg Hakka Noodles</h6>
+                            <span class="rating-badge">4.4 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">Chinese • Stir-fry • ₹180</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 food-item">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-veg"></div>
+                        <img src="https://media.istockphoto.com/id/1661041657/photo/veg-manchurian-indian-chinese-food-dish-in-a-white-bowl-with-styling-on-wood-background.webp?b=1&s=170667a&w=0&k=20&c=pRjcbkuVMi1NHou4SgqiKo4TuG4-Bj_aqn3QPmx-fKE="
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Manchurian">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Veg Manchurian Dry</h6>
+                            <span class="rating-badge">4.5 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">Deep Fried • Spicy Sauce • ₹220</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 food-item">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-non-veg"></div>
+                        <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Chilli Chicken">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Chilli Chicken Gravy</h6>
+                            <span class="rating-badge">4.7 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">Diced Chicken • Capsicum • ₹290</p>
                         <button class="btn btn-zing">Add to Cart</button>
                     </div>
                 </div>
@@ -103,9 +388,12 @@
 
             <div class="col-12 col-md-6 col-lg-3 food-item" id="pizza-section">
                 <div class="card food-card shadow-sm">
-                    <div class="img-container">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
                         <div class="diet-indicator diet-veg"></div>
-                        <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500&h=400&fit=crop" alt="Pizza">
+                        <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Pizza">
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-1">
@@ -118,86 +406,21 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-6 col-lg-3 food-item" id="samosa-section">
+            <div class="col-12 col-md-6 col-lg-3 food-item">
                 <div class="card food-card shadow-sm">
-                    <div class="img-container">
-                        <div class="diet-indicator diet-veg"></div>
-                        <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950" alt="Samosa">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-non-veg"></div>
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Pepperoni">
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <h6 class="fw-bold mb-0 dish-name">Crispy Samosa (3pc)</h6>
+                            <h6 class="fw-bold mb-0 dish-name">Chicken Pepperoni</h6>
                             <span class="rating-badge">4.8 ★</span>
                         </div>
-                        <p class="text-muted small mb-3 dish-desc">Snack • Potato • ₹120</p>
-                        <button class="btn btn-zing">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-3 food-item" id="burger-section">
-                <div class="card food-card shadow-sm">
-                    <div class="img-container">
-                        <div class="diet-indicator diet-non-veg"></div>
-                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&h=400&fit=crop" alt="Burger">
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <h6 class="fw-bold mb-0 dish-name">Zinger Burger</h6>
-                            <span class="rating-badge">4.5 ★</span>
-                        </div>
-                        <p class="text-muted small mb-3 dish-desc">Fast Food • Chicken • ₹250</p>
-                        <button class="btn btn-zing">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-3 food-item" id="chinese-section">
-                <div class="card food-card shadow-sm">
-                    <div class="img-container">
-                        <div class="diet-indicator diet-veg"></div>
-                        <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=500&h=400&fit=crop" alt="Noodles">
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <h6 class="fw-bold mb-0 dish-name">Veg Hakka Noodles</h6>
-                            <span class="rating-badge">4.4 ★</span>
-                        </div>
-                        <p class="text-muted small mb-3 dish-desc">Chinese • Stir-fry • ₹450</p>
-                        <button class="btn btn-zing">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-3 food-item">
-                <div class="card food-card shadow-sm">
-                    <div class="img-container">
-                        <div class="diet-indicator diet-veg"></div>
-                        <img src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=300" alt="Paneer Tikka">
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <h6 class="fw-bold mb-0 dish-name">Paneer Tikka</h6>
-                            <span class="rating-badge">4.6 ★</span>
-                        </div>
-                        <p class="text-muted small mb-3 dish-desc">Grill • Spiced • ₹320</p>
-                        <button class="btn btn-zing">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-3 food-item">
-                <div class="card food-card shadow-sm">
-                    <div class="img-container">
-                        <div class="diet-indicator diet-veg"></div>
-                        <img src="https://images.unsplash.com/photo-1633337474564-1d9478ca4e2e?w=500&h=400&fit=crop" alt="Pasta">
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <h6 class="fw-bold mb-0 dish-name">White Sauce Pasta</h6>
-                            <span class="rating-badge">4.3 ★</span>
-                        </div>
-                        <p class="text-muted small mb-3 dish-desc">Creamy • Herbs • ₹550</p>
+                        <p class="text-muted small mb-3 dish-desc">Smoked Meat • Mozzarella • ₹499</p>
                         <button class="btn btn-zing">Add to Cart</button>
                     </div>
                 </div>
@@ -205,9 +428,12 @@
 
             <div class="col-12 col-md-6 col-lg-3 food-item" id="dessert-section">
                 <div class="card food-card shadow-sm">
-                    <div class="img-container">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
                         <div class="diet-indicator diet-veg"></div>
-                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=500&h=400&fit=crop" alt="Cake">
+                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Cake">
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-1">
@@ -220,16 +446,60 @@
                 </div>
             </div>
 
+            <div class="col-12 col-md-6 col-lg-3 food-item">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-veg"></div>
+                        <img src="https://images.unsplash.com/photo-1589119908995-c6837fa14848?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Gulab Jamun">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Gulab Jamun (2pc)</h6>
+                            <span class="rating-badge">4.9 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">Indian Sweet • Hot Syrup • ₹60</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 food-item">
+                <div class="card food-card shadow-sm">
+                    <div class="img-container position-relative">
+                        <div class="shimmer-wrapper skeleton-img position-absolute top-0 start-0 w-100 h-100"></div>
+                        <div class="diet-indicator diet-veg"></div>
+                        <img src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=500&h=400&fit=crop"
+                            class="food-image position-relative" style="opacity: 0; transition: opacity 0.5s;"
+                            alt="Shake">
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0 dish-name">Classic Oreo Shake</h6>
+                            <span class="rating-badge">4.6 ★</span>
+                        </div>
+                        <p class="text-muted small mb-3 dish-desc">Thick • Creamy • ₹180</p>
+                        <button class="btn btn-zing">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
-     <footer>
+    <footer>
         <div class="container">
             <div class="row gy-4">
                 <div class="col-lg-4 col-md-12">
-                    <a href="index.html" class="footer-brand"><i class="fa-solid fa-fire-flame-curved"></i> ZingFood</a>
-                    <p class="mt-3 pe-lg-5">Building the future of food delivery with speed, taste, and hygiene. We
-                        bring your favorite meals from the kitchen to your table in a Zing!</p>
+                    <a href="index.html" class="footer-brand">
+                        <i class="fa-solid fa-fire-flame-curved"></i> ZingFood
+                    </a>
+                    <p class="mt-3 pe-lg-5">
+                        Building the future of food delivery with speed, taste, and hygiene. We
+                        bring your favorite meals from the kitchen to your table in a Zing!
+                    </p>
                     <div class="d-flex gap-2 mt-4">
                         <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
                         <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
@@ -262,12 +532,23 @@
                 <div class="col-lg-4 col-md-12">
                     <h6 class="footer-heading">Experience ZingFood App</h6>
                     <p class="small mb-3">Get 50% off on your first order via the App!</p>
+
+                    <form action="https://formspree.io/f/your-form-id" method="POST" class="mb-4">
+                        <div class="input-group">
+                            <input type="email" name="email" class="form-control border-0"
+                                placeholder="Enter your email" required style="border-radius: 10px 0 0 10px;">
+                            <button class="btn btn-zing" type="submit"
+                                style="border-radius: 0 10px 10px 0;">Subscribe</button>
+                        </div>
+                    </form>
+
                     <div class="d-flex flex-wrap gap-2">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
                             alt="Play Store" class="app-badge">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
                             alt="App Store" class="app-badge">
                     </div>
+
                     <div class="mt-4">
                         <p class="small mb-1"><i class="fa-solid fa-envelope me-2 text-zing-red"></i>
                             support@zingfood.com</p>
@@ -288,11 +569,10 @@
                 </div>
             </div>
         </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script src="script.js">
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
