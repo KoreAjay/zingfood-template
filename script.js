@@ -13,9 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const cartTotalElement = document.getElementById('cartTotal');
     const emptyMsg = document.getElementById('emptyCartMsg');
 
-    let cartTotal = 0;
+    // NEW: Persistent Cart State
+    let cart = JSON.parse(localStorage.getItem('zingCart')) || [];
 
-    // --- 2. Filtering Logic (Search + Category Pills) ---
+    // --- 2. Filtering Logic ---
     function filterDishes() {
         const searchTerm = searchInput.value.toLowerCase();
         const activePill = document.querySelector('.filter-pill.active')?.innerText;
@@ -26,24 +27,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const dishDesc = item.querySelector('.dish-desc').innerText.toLowerCase();
             const ratingBadge = item.querySelector('.rating-badge');
             const rating = ratingBadge ? parseFloat(ratingBadge.innerText) : 0;
-
             const isVeg = item.querySelector('.diet-veg') !== null;
             const isNonVeg = item.querySelector('.diet-non-veg') !== null;
 
-            // Check Search Match
             const matchesSearch = dishName.includes(searchTerm) || dishDesc.includes(searchTerm);
-
-            // Check Pill Match
             let matchesPill = true;
-            if (activePill === "Pure Veg") {
-                matchesPill = isVeg;
-            } else if (activePill === "Non-Veg") {
-                matchesPill = isNonVeg;
-            } else if (activePill === "Rating 4.0+") {
-                matchesPill = rating >= 4.0;
-            }
+            if (activePill === "Pure Veg") matchesPill = isVeg;
+            else if (activePill === "Non-Veg") matchesPill = isNonVeg;
+            else if (activePill === "Rating 4.0+") matchesPill = rating >= 4.0;
 
-            // Display Toggle
             if (matchesSearch && matchesPill) {
                 item.style.display = "block";
                 hasResults = true;
@@ -52,172 +44,195 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Update Section Title
-        if (!hasResults) {
-            menuTitle.innerText = searchTerm ? `No results for "${searchTerm}"` : "No items found";
-        } else {
-            menuTitle.innerText = (searchTerm === "" && !activePill) ? "Top Rated Dishes" : "Filtered Results";
-        }
+        menuTitle.innerText = !hasResults ? `No results for "${searchTerm}"` :
+            (searchTerm === "" && !activePill) ? "Top Rated Dishes" : "Filtered Results";
     }
 
-    // --- 3. Cart Functions ---
+    // --- 3. Persistent Cart Functions ---
     const toggleCart = () => {
         cartSidebar.classList.toggle('active');
         cartOverlay.classList.toggle('active');
     };
 
     function updateCartUI() {
-        cartTotalElement.innerText = `₹${cartTotal}`;
-        if (emptyMsg) {
-            emptyMsg.style.display = cartTotal === 0 ? 'block' : 'none';
-        }
+        cartItemsContainer.innerHTML = '';
+        let total = 0;
+
+        cart.forEach((item, index) => {
+            total += item.price * item.quantity;
+            const itemHtml = `
+                <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h6 class="mb-0 small fw-bold">${item.name}</h6>
+                        <span class="text-muted small">₹${item.price} x ${item.quantity}</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <button class="btn btn-sm btn-outline-secondary py-0" onclick="changeQty(${index}, -1)">-</button>
+                        <button class="btn btn-sm btn-outline-secondary py-0" onclick="changeQty(${index}, 1)">+</button>
+                        <button class="btn btn-sm text-danger" onclick="removeFromCart(${index})"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>`;
+            cartItemsContainer.insertAdjacentHTML('beforeend', itemHtml);
+        });
+
+        cartTotalElement.innerText = `₹${total}`;
+        if (emptyMsg) emptyMsg.style.display = cart.length === 0 ? 'block' : 'none';
+        localStorage.setItem('zingCart', JSON.stringify(cart));
     }
 
-    // --- 4. Event Listeners ---
+    // Global helpers for cart buttons
+    window.changeQty = (index, delta) => {
+        cart[index].quantity += delta;
+        if (cart[index].quantity <= 0) cart.splice(index, 1);
+        updateCartUI();
+    };
 
-    // Search and Pill Listeners
+    window.removeFromCart = (index) => {
+        cart.splice(index, 1);
+        updateCartUI();
+    };
+
+    // --- 4. Event Listeners ---
     searchInput.addEventListener('input', filterDishes);
 
     filterPills.forEach(pill => {
         pill.addEventListener('click', function () {
-            if (this.classList.contains('active')) {
-                this.classList.remove('active');
-            } else {
-                filterPills.forEach(p => p.classList.remove('active'));
-                this.classList.add('active');
-            }
+            filterPills.forEach(p => p !== this && p.classList.remove('active'));
+            this.classList.toggle('active');
             filterDishes();
         });
     });
 
-    // Sidebar Toggle Listeners
     if (openCartBtn) openCartBtn.addEventListener('click', toggleCart);
     if (closeCartBtn) closeCartBtn.addEventListener('click', toggleCart);
-    if (cartOverlay) cartOverlay.addEventListener('click', toggleCart);
 
-    // Add to Cart Logic (Event Delegation)
+    // Add to Cart with Toast Notification
     document.addEventListener('click', function (e) {
-        // Handle "Add to Cart"
         if (e.target.classList.contains('btn-zing') && e.target.innerText === "Add to Cart") {
-            const card = e.target.closest('.card-body') || e.target.closest('.food-item');
-            const dishName = card.querySelector('.dish-name').innerText;
-            const dishDesc = card.querySelector('.dish-desc').innerText;
+            const card = e.target.closest('.food-item') || e.target.closest('.card-body');
+            const name = card.querySelector('.dish-name').innerText;
+            const price = parseInt(card.querySelector('.dish-desc').innerText.match(/₹(\d+)/)[1]);
 
-            const priceMatch = dishDesc.match(/₹(\d+)/);
-            const price = priceMatch ? parseInt(priceMatch[1]) : 0;
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
 
-            const itemHtml = `
-                <div class="cart-item d-flex justify-content-between align-items-center mb-3" data-price="${price}">
-                    <div>
-                        <h6 class="mb-0 small fw-bold">${dishName}</h6>
-                        <span class="text-muted small">₹${price}</span>
-                    </div>
-                    <button class="btn btn-sm text-danger remove-item"><i class="fa-solid fa-trash"></i></button>
-                </div>
-            `;
-
-            cartItemsContainer.insertAdjacentHTML('beforeend', itemHtml);
-            cartTotal += price;
             updateCartUI();
-
+            showToast(`${name} added to cart!`);
             if (!cartSidebar.classList.contains('active')) toggleCart();
         }
-
-        // Handle "Remove from Cart"
-        if (e.target.closest('.remove-item')) {
-            const itemRow = e.target.closest('.cart-item');
-            const itemPrice = parseInt(itemRow.getAttribute('data-price'));
-
-            cartTotal -= itemPrice;
-            itemRow.remove();
-            updateCartUI();
-        }
     });
+
+    // Initialize UI
+    updateCartUI();
 });
 
+// --- Toast Notification System ---
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'zing-toast';
+    toast.innerText = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 100);
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
+}
 
 // --- Dark Mode Logic ---
 const themeToggle = document.getElementById('darkModeToggle');
-const currentTheme = localStorage.getItem('theme');
-
-// Check for saved user preference
-if (currentTheme === 'dark') {
+if (localStorage.getItem('theme') === 'dark') {
     document.body.setAttribute('data-theme', 'dark');
-    themeToggle.checked = true;
+    if (themeToggle) themeToggle.checked = true;
 }
 
-themeToggle.addEventListener('change', function() {
-    if (this.checked) {
-        document.body.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        document.body.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'light');
-    }
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const foodImages = document.querySelectorAll('.food-image');
-
-    foodImages.forEach(img => {
-        // If image is already in cache
-        if (img.complete) {
-            handleImageLoad(img);
-        } else {
-            img.addEventListener('load', () => handleImageLoad(img));
-        }
+if (themeToggle) {
+    themeToggle.addEventListener('change', function () {
+        const theme = this.checked ? 'dark' : 'light';
+        document.body.setAttribute('data-theme', theme === 'dark' ? 'dark' : '');
+        localStorage.setItem('theme', theme);
     });
+}
 
-    function handleImageLoad(img) {
-        // Find the shimmer wrapper in the same container
+// --- Image Loading / Shimmer ---
+window.addEventListener('load', () => {
+    document.querySelectorAll('.food-image').forEach(img => {
         const shimmer = img.parentElement.querySelector('.shimmer-wrapper');
-        if (shimmer) {
-            shimmer.style.display = 'none'; // Hide shimmer
-        }
-        img.style.opacity = '1'; // Fade in the actual image
+        if (shimmer) shimmer.style.display = 'none';
+        img.style.opacity = '1';
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const cartSidebar = document.getElementById('cartSidebar');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const backBtnCart = document.getElementById('backBtnCart');
+    const continueShopping = document.getElementById('continueShopping');
+    const closeCartBtn = document.getElementById('closeCart');
+
+    // Function to close/go back from cart
+    const closeCartAction = () => {
+        cartSidebar.classList.remove('active');
+        cartOverlay.classList.remove('active');
+    };
+
+    // 1. Mobile Back Arrow
+    if (backBtnCart) {
+        backBtnCart.addEventListener('click', closeCartAction);
+    }
+
+    // 2. Continue Shopping Button
+    if (continueShopping) {
+        continueShopping.addEventListener('click', closeCartAction);
+    }
+
+    // 3. Existing Close Button
+    if (closeCartBtn) {
+        closeCartBtn.addEventListener('click', closeCartAction);
+    }
+
+    // 4. Clicking the Overlay (Backdrop)
+    if (cartOverlay) {
+        cartOverlay.addEventListener('click', closeCartAction);
     }
 });
 
-function showLoading() {
-    document.getElementById('food-container').innerHTML = `
-        `;
-}
-
-function displayFood(data) {
-    const container = document.getElementById('food-container');
-    container.innerHTML = ''; // This removes the shimmer/skeletons
+function updateCartUI() {
+    const cartCountBadge = document.getElementById('cartCount');
+    const cartTotalElement = document.getElementById('cartTotal');
+    const cartItemsContainer = document.getElementById('cartItems');
     
-    data.forEach(item => {
-        // Append your actual food-card HTML here
+    let totalItems = 0;
+    let totalPrice = 0;
+
+    // Assuming 'cart' is your array of objects [{price: 100, quantity: 2}, ...]
+    cart.forEach(item => {
+        totalItems += item.quantity;
+        totalPrice += (item.price * item.quantity);
     });
-}
 
-// Footer Subscription Logic
-const footerForm = document.querySelector('footer form');
+    // 1. Update the Total Price Span
+    if (cartTotalElement) {
+        cartTotalElement.innerText = `₹${totalPrice}`;
+    }
 
-if (footerForm) {
-    footerForm.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Prevents the page from reloading
-        
-        const data = new FormData(footerForm);
-        
-        try {
-            const response = await fetch(footerForm.action, {
-                method: 'POST',
-                body: data,
-                headers: { 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-                // Replaces the form with a success message
-                footerForm.innerHTML = '<p class="text-success fw-bold">Success! Welcome to the ZingFood family!</p>';
-            } else {
-                // Handles server errors
-                alert('Oops! There was a problem submitting your email.');
-            }
-        } catch (error) {
-            // Handles network errors
-            alert('Could not connect to the server. Please check your internet.');
+    // 2. Update the Badge Count
+    if (cartCountBadge) {
+        if (totalItems > 0) {
+            cartCountBadge.innerText = totalItems;
+            cartCountBadge.style.display = 'block'; // Show if items exist
+        } else {
+            cartCountBadge.style.display = 'none'; // Hide if empty
         }
-    });
+    }
+
+    // 3. Update the list inside the sidebar (Existing logic)
+    renderCartItems(); 
+    
+    // Save to local storage so it persists on refresh
+    localStorage.setItem('zingCart', JSON.stringify(cart));
 }
